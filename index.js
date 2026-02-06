@@ -27,7 +27,12 @@ async function run() {
     const movieCollection=db.collection('movies')
     
     app.get('/movies',async(req,res)=>{
-        const cursor=movieCollection.find()
+        const email=req.query.email
+        const query={}
+        if(email){
+            query.email=email
+        }
+        const cursor=movieCollection.find(query)
         const result=await cursor.toArray()
         res.send(result)
     })
